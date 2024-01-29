@@ -7,24 +7,37 @@ import { AiFillDelete } from 'react-icons/ai';
 
 
 const Header = () => {
-    const { state: { cart }, dispatch } = CartState()
+    const {
+        state: { cart },
+        dispatch,
+        productDispatch,
+    } = CartState();
+
 
     return (
         <Navbar bg="dark" variant="dark" style={{ height: 80 }}>
             <Container>
                 <Navbar.Brand>
-                    <Link to="/">Shopping cart</Link>
+                    <Link to="/">Home</Link>
                 </Navbar.Brand>
                 <Navbar.Text className="search">
                     <FormControl
                         style={{ width: 500 }}
-                        placeholder='Search'
-                        className='m-auto'
+                        type="search"
+                        placeholder="Search a product..."
+                        className="m-auto"
+                        aria-label="Search"
+                        onChange={(e) => {
+                            productDispatch({
+                                type: "FILTER_BY_SEARCH",
+                                payload: e.target.value,
+                            });
+                        }}
                     />
                 </Navbar.Text>
                 <Nav>
                     <Dropdown>
-                        <Dropdown.Toggle variant='success'>
+                        <Dropdown.Toggle variant='dark'>
                             <FaShoppingCart color="white" fontSize="25px" />
                             <Badge>{cart.length}</Badge>
                         </Dropdown.Toggle>
@@ -61,13 +74,13 @@ const Header = () => {
                                 <span style={{ padding: 10 }}>Cart is Empty!</span>
                             )
                             }
-
+                            {cart.length > 0 && (
                             <Link to="/cart">
-                                <Button style={{width: "95%", margin: "0 10px"}} >
+                                <Button style={{ width: "95%", margin: "0 10px" }} >
                                     Go to Cart
                                 </Button>
                             </Link>
-
+                            )}
                         </Dropdown.Menu>
                     </Dropdown>
                 </Nav>

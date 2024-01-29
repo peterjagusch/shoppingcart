@@ -36,7 +36,14 @@ const Cart = () => {
                                     <span> {prod.price}</span>
                                 </Col>
                                 <Col md={2}>
-                                    <Rating rating={prod.rating} />
+                                    <Rating rating={prod.ratings}
+                                        onClick={(e) =>
+                                            dispatch({
+                                                type: "ADD_RATING_TO_PRODUCT",
+                                                payload: prod.ratings = e + 1,
+                                            })
+                                        }
+                                    />
                                 </Col>
                                 <Col md={2}>
                                     <FormControl
@@ -77,7 +84,7 @@ const Cart = () => {
                 </ListGroup>
 
             </div>
-            <div className='filter summary'>
+            <div className='filters summary'>
                 <span className='title'>Subtotal ({cart.length} items)</span>
                 <span style={{ fontWeight: 600, fontSize: 20 }}> Total £{total}</span>
                 <Button type="button" disabled={cart.length === 0}>Proceed to checkout</Button>

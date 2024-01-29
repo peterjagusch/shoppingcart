@@ -28,7 +28,15 @@ const SingleProduct = ({ prod }) => {
                         ) : (
                             <div>Slow Delivery</div>
                         )}
-                        <Rating rating={prod.ratings} />
+                        <Rating 
+                        rating={prod.ratings}                         
+                        onClick={(e) =>
+                            dispatch({
+                                type: "ADD_RATING_TO_PRODUCT",
+                                payload: prod.ratings = e+1,
+                            })
+                            }
+                         />
                     </Card.Subtitle>
                     {
                         cart.some(p=>p.id===prod.id)?(
